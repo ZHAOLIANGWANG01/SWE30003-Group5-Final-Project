@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(title)">
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title th:text="${title} + ' | Your Order We Deliver'">Delivery Management</title>
+  <link rel="stylesheet" th:href="@{/css/common.css}">
+</head>
+<body>
+<header th:fragment="header" class="topbar">
+  <a th:href="@{/}" class="brand">Your Order <strong>We Deliver</strong></a>
+  <form th:action="@{/logout}" method="post"><button class="secondary" type="submit">Sign out</button></form>
+</header>
+<footer th:fragment="footer">SWE30003 · Group 5 · Local teaching project</footer>
+</body></html>

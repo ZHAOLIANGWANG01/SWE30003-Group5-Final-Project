@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{shared/layout :: head('Workspace')}"></head>
+<body>
+<header th:replace="~{shared/layout :: header}"></header>
+<main class="container">
+  <p class="eyebrow">DELIVERY WORKSPACE</p>
+  <h1>Welcome, <span th:text="${person.displayName()}">member</span>.</h1>
+  <p class="muted">Account role: <strong th:text="${person.role()}">role</strong></p>
+  <div class="alert success">Sign-in and persistent storage are ready.</div>
+  <div class="grid">
+    <article class="card" th:if="${person.role().name() != 'DELIVERY_STAFF'}">
+      <p class="eyebrow">MEMBER B</p><h2>Requests &amp; quotations</h2>
+      <p>Delivery requests, quote preparation and customer decisions.</p>
+      <span class="badge">Awaiting business implementation</span>
+      <a class="button secondary" th:href="@{/workspace/requests}">Module handoff</a>
+    </article>
+    <article class="card" th:if="${person.role().name() != 'CUSTOMER'}">
+      <p class="eyebrow">MEMBER C</p><h2>Scheduling &amp; delivery</h2>
+      <p>Staff availability, conflict-free allocation and delivery events.</p>
+      <span class="badge">Awaiting business implementation</span>
+      <a class="button secondary" th:href="@{/workspace/operations}">Module handoff</a>
+    </article>
+  </div>
+</main>
+<footer th:replace="~{shared/layout :: footer}"></footer>
+</body></html>

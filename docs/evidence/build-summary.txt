@@ -1,0 +1,14 @@
+Member A foundation validation
+Date: 2026-10-15 (Australia/Melbourne)
+Command: mvn -B -ntp clean verify (local cache path omitted)
+Spring Boot 3.5.16; Maven 3.9.11; test execution JDK 25, Java release target 17
+
+edu.delivery.auth.AuthenticationTest: tests=7, failures=0, errors=0, skipped=0
+edu.delivery.persistence.FilePersistenceTest: tests=1, failures=0, errors=0, skipped=0
+edu.delivery.persistence.JdbcDeliveryStoreTest: tests=15, failures=0, errors=0, skipped=0
+
+BUILD SUCCESS
+Packaged JAR started successfully on loopback port 18080.
+Browser: login, office workspace, B module handoff and CSRF-protected sign-out verified.
+Maven Wrapper successfully downloaded Maven 3.9.11 and printed its version (JDK 24).
+No B/C domain implementation or end-to-end business acceptance is claimed.

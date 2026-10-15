@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{shared/layout :: head('Sign in')}"></head>
+<body class="login-page">
+<main class="login-card">
+  <p class="eyebrow">GROUP 5 · DELIVERY MANAGEMENT</p>
+  <h1>Your Order<br><span>We Deliver.</span></h1>
+  <p class="muted">Sign in to your delivery workspace.</p>
+  <p th:if="${param.error}" class="alert error" role="alert">Unable to sign in. Check your credentials.</p>
+  <p th:if="${param.logout}" class="alert success" role="status">You have signed out.</p>
+  <form th:action="@{/login}" method="post" class="stack">
+    <label for="username">Username</label>
+    <input id="username" name="username" autocomplete="username" maxlength="80" required autofocus>
+    <label for="password">Password</label>
+    <input id="password" name="password" type="password" autocomplete="current-password" required>
+    <button type="submit">Sign in</button>
+  </form>
+</main>
+<footer th:replace="~{shared/layout :: footer}"></footer>
+</body></html>
