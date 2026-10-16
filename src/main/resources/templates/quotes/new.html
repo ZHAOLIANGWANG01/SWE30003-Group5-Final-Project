@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{shared/layout :: head('Create Quote')}"></head>
+<body>
+<header th:replace="~{shared/layout :: header}"></header>
+<main class="container narrow">
+  <p class="eyebrow">MEMBER B / QUOTATIONS</p>
+  <h1>Create Quote for Request #<span th:text="${request.id()}"></span></h1>
+  <p class="muted">Times are entered in Melbourne local time. Use an unambiguous time around DST changes.</p>
+  <p class="alert error" role="alert" th:if="${errorMessage}" th:text="${errorMessage}"></p>
+  <section class="card">
+    <form class="stack" method="post" th:action="@{/quotes/new}">
+      <input type="hidden" name="requestId" th:value="${request.id()}">
+      <input type="hidden" name="version" th:value="${request.version()}">
+      <label for="amount">Amount (AUD)</label>
+      <input id="amount" name="amount" type="number" step="0.01" min="0.01" required
+             th:value="${form['amount']}">
+      <label for="pickupAt">Estimated pickup (Melbourne)</label>
+      <input id="pickupAt" name="pickupAt" type="datetime-local" required th:value="${form['pickupAt']}">
+      <label for="deliveryAt">Estimated delivery (Melbourne)</label>
+      <input id="deliveryAt" name="deliveryAt" type="datetime-local" required th:value="${form['deliveryAt']}">
+      <label for="expiresAt">Quote expires (Melbourne)</label>
+      <input id="expiresAt" name="expiresAt" type="datetime-local" required th:value="${form['expiresAt']}">
+      <button type="submit">Issue Quote</button>
+      <a th:href="@{/requests/{id}(id=${request.id()})}">Cancel</a>
+    </form>
+  </section>
+</main>
+<footer th:replace="~{shared/layout :: footer}"></footer>
+</body>
+</html>

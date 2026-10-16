@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{shared/layout :: head('Delivery Request Details')}"></head>
+<body>
+<header th:replace="~{shared/layout :: header}"></header>
+<main class="container narrow">
+  <p class="eyebrow">MEMBER B / REQUESTS</p>
+  <h1>Delivery Request #<span th:text="${request.id()}">1</span></h1>
+  <p class="alert success" th:if="${successMessage}" th:text="${successMessage}"></p>
+  <p class="alert error" th:if="${errorMessage}" th:text="${errorMessage}"></p>
+  <section class="card">
+    <p>Status: <strong th:text="${request.status()}">REQUESTED</strong></p>
+    <p>Version: <span th:text="${request.version()}">0</span></p>
+    <p>Created: <span th:text="${request.createdAt()}"></span></p>
+    <h2>Customer</h2>
+    <p>Name: <span th:text="${request.details().customerName()}"></span></p>
+    <p>Phone: <span th:text="${request.details().customerPhone()}"></span></p>
+    <h2>Delivery</h2>
+    <p>Pickup: <span th:text="${request.details().pickupAddress()}"></span></p>
+    <p>Destination: <span th:text="${request.details().deliveryAddress()}"></span></p>
+    <p>Recipient: <span th:text="${request.details().recipientName()}"></span></p>
+    <p>Recipient phone: <span th:text="${request.details().recipientPhone()}"></span></p>
+    <h2>Parcel</h2>
+    <p th:text="${request.details().parcelDescription()}"></p>
+    <p>Notes: <span th:text="${request.details().handlingNotes()}"></span></p>
+    <p><a th:href="@{/quotes(requestId=${request.id()})}">View quotations</a></p>
+    <p th:if="${canEdit}"><a th:href="@{/requests/{id}/edit(id=${request.id()})}">Edit request</a></p>
+    <p th:if="${office and (request.status().name() == 'REQUESTED' or request.status().name() == 'QUOTED')}">
+      <a th:href="@{/quotes/new(requestId=${request.id()})}">Prepare quotation</a>
+    </p>
+    <p><a th:href="@{/requests}">All requests</a></p>
+  </section>
+</main>
+<footer th:replace="~{shared/layout :: footer}"></footer>
+</body>
+</html>

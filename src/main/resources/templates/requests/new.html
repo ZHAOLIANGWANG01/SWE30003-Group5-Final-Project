@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{shared/layout :: head('New Delivery Request')}"></head>
+<body>
+<header th:replace="~{shared/layout :: header}"></header>
+<main class="container narrow">
+  <p class="eyebrow">MEMBER B / REQUESTS</p>
+  <h1>Create Delivery Request</h1>
+  <p class="muted">Enter parcel and delivery details. Fields marked * are required.</p>
+  <p class="alert error" role="alert" th:if="${errorMessage}" th:text="${errorMessage}"></p>
+  <section class="card">
+    <form class="stack" method="post" th:action="@{/requests/new}">
+      <input type="hidden" name="submissionKey" th:value="${submissionKey}">
+      <div th:if="${office}">
+        <label for="customerUsername">Customer username * (office only)</label>
+        <input type="text" id="customerUsername" name="customerUsername" maxlength="80"
+               th:value="${form['customerUsername']}" required>
+      </div>
+      <h2>Customer Information</h2>
+      <label for="customerName">Customer name *</label>
+      <input id="customerName" name="customerName" maxlength="120" required th:value="${form['customerName']}">
+      <label for="customerPhone">Customer phone *</label>
+      <input id="customerPhone" name="customerPhone" maxlength="40" type="tel" required th:value="${form['customerPhone']}">
+      <h2>Delivery Information</h2>
+      <label for="pickupAddress">Pickup address *</label>
+      <input id="pickupAddress" name="pickupAddress" maxlength="500" required th:value="${form['pickupAddress']}">
+      <label for="deliveryAddress">Delivery address *</label>
+      <input id="deliveryAddress" name="deliveryAddress" maxlength="500" required th:value="${form['deliveryAddress']}">
+      <label for="recipientName">Recipient name *</label>
+      <input id="recipientName" name="recipientName" maxlength="120" required th:value="${form['recipientName']}">
+      <label for="recipientPhone">Recipient phone *</label>
+      <input id="recipientPhone" name="recipientPhone" maxlength="40" type="tel" required th:value="${form['recipientPhone']}">
+      <h2>Parcel Information</h2>
+      <label for="parcelDescription">Parcel description *</label>
+      <textarea id="parcelDescription" name="parcelDescription" rows="4" maxlength="1000" required
+                th:text="${form['parcelDescription']}"></textarea>
+      <label for="handlingNotes">Handling notes (optional)</label>
+      <textarea id="handlingNotes" name="handlingNotes" rows="3" maxlength="2000"
+                th:text="${form['handlingNotes']}"></textarea>
+      <button type="submit">Submit Request</button>
+      <a th:href="@{/requests}">View my requests</a>
+    </form>
+  </section>
+</main>
+<footer th:replace="~{shared/layout :: footer}"></footer>
+</body>
+</html>

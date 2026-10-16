@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{shared/layout :: head('Delivery Requests')}"></head>
+<body>
+<header th:replace="~{shared/layout :: header}"></header>
+<main class="container">
+  <p class="eyebrow">MEMBER B / REQUESTS</p><h1>Delivery Requests</h1>
+  <p class="muted" th:text="${office} ? 'Office: all customer requests' : 'Your requests'">Your requests</p>
+  <p><a class="button" th:href="@{/requests/new}">Create request</a></p>
+  <section class="grid" th:if="${!#lists.isEmpty(requests)}">
+    <article class="card" th:each="r : ${requests}">
+      <h2>Request #<span th:text="${r.id()}">1</span></h2>
+      <p>Status: <strong th:text="${r.status()}">REQUESTED</strong></p>
+      <p th:text="${r.details().pickupAddress()} + ' → ' + ${r.details().deliveryAddress()}"></p>
+      <p>Created: <span th:text="${r.createdAt()}"></span></p>
+      <a th:href="@{/requests/{id}(id=${r.id()})}">View details</a>
+    </article>
+  </section>
+  <p th:if="${#lists.isEmpty(requests)}">No requests found.</p>
+  <p>
+    <a th:if="${page > 0}" th:href="@{/requests(page=${page - 1})}">Previous page</a>
+    <a th:if="${hasNext}" th:href="@{/requests(page=${page + 1})}">Next page</a>
+  </p>
+  <p><a th:href="@{/}">Back to workspace</a></p>
+</main>
+<footer th:replace="~{shared/layout :: footer}"></footer>
+</body>
+</html>

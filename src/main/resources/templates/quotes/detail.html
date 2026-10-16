@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{shared/layout :: head('Quote Details')}"></head>
+<body>
+<header th:replace="~{shared/layout :: header}"></header>
+<main class="container narrow">
+  <p class="eyebrow">MEMBER B / QUOTATIONS</p>
+  <h1>Quote #<span th:text="${quote.id()}"></span></h1>
+  <p class="alert success" th:if="${successMessage}" th:text="${successMessage}"></p>
+  <p class="alert error" th:if="${errorMessage}" th:text="${errorMessage}"></p>
+  <section class="card">
+    <p>Request: <a th:href="@{/requests/{id}(id=${request.id()})}" th:text="'Request #' + ${request.id()}"></a></p>
+    <h2>AUD <span th:text="${quote.amount()}"></span></h2>
+    <p>Status: <strong th:text="${quote.status()}"></strong></p>
+    <p>Request status: <span th:text="${request.status()}"></span></p>
+    <p>Pickup (with offset): <span th:text="${quote.pickupAt()}"></span></p>
+    <p>Delivery (with offset): <span th:text="${quote.deliveryAt()}"></span></p>
+    <p>Expires: <span th:text="${quote.expiresAt()}"></span></p>
+    <p class="alert error" th:if="${expired and quote.status().name() == 'ISSUED'}">This quote has expired.</p>
+    <div th:if="${canDecide}">
+      <h2>Customer Decision</h2>
+      <form method="post" th:action="@{/quotes/{id}/decision(id=${quote.id()})}">
+        <input type="hidden" name="quoteVersion" th:value="${quote.version()}">
+        <input type="hidden" name="requestVersion" th:value="${request.version()}">
+        <button type="submit" name="decision" value="accept">Accept quote</button>
+        <button type="submit" name="decision" value="decline" class="secondary">Decline quote</button>
+      </form>
+    </div>
+    <p><a th:href="@{/quotes(requestId=${request.id()})}">All quotes</a></p>
+  </section>
+</main>
+<footer th:replace="~{shared/layout :: footer}"></footer>
+</body>
+</html>
