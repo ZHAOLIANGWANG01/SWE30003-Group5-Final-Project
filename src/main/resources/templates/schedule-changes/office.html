@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{scheduling/c-layout :: head('Schedule Changes')}"></head>
+<body><header th:replace="~{shared/layout :: header}"></header>
+<nav class="module-nav container" aria-label="Operations"><a th:href="@{/scheduling}">Scheduling</a><a th:href="@{/availability}">Availability</a><a th:href="@{/schedule-changes}">Schedule changes</a><a th:href="@{/delivery/tasks}">Delivery tasks</a></nav>
+<main class="container narrow"><p class="eyebrow">MEMBER C / CUSTOMER CONFIRMATION</p><h1>Pending schedule changes</h1><p class="alert success" th:if="${successMessage}" th:text="${successMessage}"></p><p class="alert error" th:if="${errorMessage}" th:text="${errorMessage}"></p>
+<p class="muted" th:if="${#lists.isEmpty(changes)}">There are no pending proposals.</p>
+<article class="card" th:each="entry : ${changes}"><p class="eyebrow" th:text="${'REQUEST #' + entry.card().request().id()}"></p><h2 th:text="${entry.card().request().details().recipientName()}"></h2><p>Current: <span th:text="${entry.card().schedule().pickupAt()}"></span> – <span th:text="${entry.card().schedule().deliveryAt()}"></span></p><p>Proposed: <strong th:text="${entry.change().proposedPickupAt()}"></strong> – <strong th:text="${entry.change().proposedDeliveryAt()}"></strong></p><p>Waiting for customer decision · Base schedule version <span th:text="${entry.change().baseScheduleVersion()}"></span></p><a th:href="@{/requests/{id}(id=${entry.card().request().id()})}">View request</a></article>
+</main><footer th:replace="~{shared/layout :: footer}"></footer></body></html>

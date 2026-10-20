@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{scheduling/c-layout :: head('Delivery Progress')}"></head>
+<body><header th:replace="~{shared/layout :: header}"></header>
+<nav class="module-nav container" aria-label="Customer delivery"><a th:href="@{/schedule-changes}">My schedule and proposals</a><a th:href="@{/requests/{id}(id=${requestId})}">Request details</a></nav>
+<main class="container narrow"><p class="eyebrow">CUSTOMER / DELIVERY PROGRESS</p><h1>Request #<span th:text="${requestId}"></span></h1>
+<section class="card"><div><h2>Current plan</h2><p><strong th:text="${schedule.staffName()}"></strong></p><p><span th:text="${schedule.schedule().pickupAt()}"></span> – <span th:text="${schedule.schedule().deliveryAt()}"></span></p></div></section>
+<section><h2>Delivery history</h2><p class="muted" th:if="${#lists.isEmpty(events)}">No delivery progress has been recorded yet.</p><article class="timeline" th:each="event : ${events}"><strong th:text="${event.type()}"></strong><time th:text="${event.occurredAt()}"></time><p th:text="${event.note()}"></p></article></section>
+</main><footer th:replace="~{shared/layout :: footer}"></footer></body></html>
