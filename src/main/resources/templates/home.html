@@ -7,21 +7,36 @@
   <p class="eyebrow">DELIVERY WORKSPACE</p>
   <h1>Welcome, <span th:text="${person.displayName()}">member</span>.</h1>
   <p class="muted">Account role: <strong th:text="${person.role()}">role</strong></p>
-  <div class="alert success">Sign-in and persistent storage are ready.</div>
+  <div class="alert success">Choose a workspace below to continue.</div>
   <div class="grid">
     <article class="card" th:if="${person.role().name() != 'DELIVERY_STAFF'}">
-      <p class="eyebrow">MEMBER B</p><h2>Requests &amp; quotations</h2>
-      <p>Delivery requests, quote preparation and customer decisions.</p>
-      <span class="badge">Awaiting business implementation</span>
-      <a class="button secondary" th:href="@{/workspace/requests}">Module handoff</a>
+      <p class="eyebrow">MEMBER B</p>
+      <h2>Requests &amp; quotations</h2>
+      <p>Create delivery requests, review quotations and make customer decisions.</p>
+      <a class="button" th:href="@{/requests}">Open requests</a>
     </article>
-    <article class="card" th:if="${person.role().name() != 'CUSTOMER'}">
-      <p class="eyebrow">MEMBER C</p><h2>Scheduling &amp; delivery</h2>
-      <p>Staff availability, conflict-free allocation and delivery events.</p>
-      <span class="badge">Awaiting business implementation</span>
-      <a class="button secondary" th:href="@{/workspace/operations}">Module handoff</a>
+    <article class="card" th:if="${person.role().name() == 'CUSTOMER'}">
+      <p class="eyebrow">CUSTOMER DELIVERY</p>
+      <h2>My schedule</h2>
+      <p>Review confirmed delivery times and respond to proposed changes.</p>
+      <a class="button" th:href="@{/schedule-changes}">Open my schedule</a>
+    </article>
+    <article class="card" th:if="${person.role().name() == 'OFFICE_STAFF'}">
+      <p class="eyebrow">MEMBER C</p>
+      <h2>Scheduling &amp; operations</h2>
+      <p>Assign staff, manage availability and coordinate delivery execution.</p>
+      <p><a class="button" th:href="@{/scheduling}">Open scheduling</a></p>
+      <a class="button secondary" th:href="@{/availability}">Manage availability</a>
+    </article>
+    <article class="card" th:if="${person.role().name() == 'DELIVERY_STAFF'}">
+      <p class="eyebrow">MEMBER C</p>
+      <h2>My delivery tasks</h2>
+      <p>View assigned deliveries, update availability and record progress.</p>
+      <p><a class="button" th:href="@{/delivery/tasks}">Open delivery tasks</a></p>
+      <a class="button secondary" th:href="@{/availability}">Manage availability</a>
     </article>
   </div>
 </main>
 <footer th:replace="~{shared/layout :: footer}"></footer>
-</body></html>
+</body>
+</html>
