@@ -53,7 +53,13 @@ public class QuoteController {
   public String issue(@RequestParam Map<String, String> form,
       Model model, RedirectAttributes flash) {
     access.requireRole(Role.OFFICE_STAFF);
-    long requestId = positiveId(form.get("requestId"));
+    final long requestId;
+    try {
+      requestId = positiveId(form.get("requestId"));
+    } catch (IllegalArgumentException ex) {
+      flash.addFlashAttribute("errorMessage", "Could not create quote: " + ex.getMessage());
+      return "redirect:/requests";
+    }
     try {
       var quote = quotes.issueQuote(requestId, Long.parseLong(form.get("version")),
           new BigDecimal(form.get("amount")), localTime(form.get("pickupAt")),
@@ -61,7 +67,12 @@ public class QuoteController {
       flash.addFlashAttribute("successMessage", "Quote issued successfully");
       return "redirect:/quotes/" + quote.id();
     } catch (IllegalArgumentException | StoreException ex) {
-      model.addAttribute("request", requests.viewRequest(requestId));
+      try {
+        model.addAttribute("request", requests.viewRequest(requestId));
+      } catch (RuntimeException lookupFailure) {
+        flash.addFlashAttribute("errorMessage", "Could not create quote: request not found");
+        return "redirect:/requests";
+      }
       model.addAttribute("form", form);
       model.addAttribute("errorMessage", "Could not create quote: " + ex.getMessage());
       return "quotes/new";
@@ -102,7 +113,9 @@ public class QuoteController {
     return "redirect:/quotes/" + id;
   }
 
-  private boolean isOffice() { return access.current().role() == Role.OFFICE_STAFF; }
+  private boolean isOffice() {
+    return access.current().role() == Role.OFFICE_STAFF;
+  }
 
   static OffsetDateTime localTime(String raw) {
     try {
