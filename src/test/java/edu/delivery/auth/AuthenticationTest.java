@@ -90,8 +90,8 @@ class AuthenticationTest {
     mvc.perform(get("/portal/office").session(customer)).andExpect(status().isForbidden());
     mvc.perform(get("/portal/office").session(office)).andExpect(status().isOk());
     mvc.perform(get("/portal/driver").session(driver)).andExpect(status().isOk());
-    mvc.perform(get("/workspace/requests").session(driver)).andExpect(status().isForbidden());
-    mvc.perform(get("/workspace/operations").session(customer)).andExpect(status().isForbidden());
+    mvc.perform(get("/requests").session(driver)).andExpect(status().isForbidden());
+    mvc.perform(get("/scheduling").session(customer)).andExpect(status().isForbidden());
     mvc.perform(get("/unknown-admin-route").session(customer)).andExpect(status().isForbidden());
   }
 

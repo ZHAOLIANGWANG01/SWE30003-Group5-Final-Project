@@ -28,24 +28,4 @@ public class HomeController {
   public String portal(Model model) {
     return home(model);
   }
-
-  @GetMapping("/workspace/requests")
-  public String requests(Model model) {
-    access.requireRole(
-        edu.delivery.contract.DeliveryData.Role.CUSTOMER,
-        edu.delivery.contract.DeliveryData.Role.OFFICE_STAFF);
-    model.addAttribute("moduleName", "Requests and quotations");
-    model.addAttribute("owner", "Member B");
-    return "workspace";
-  }
-
-  @GetMapping("/workspace/operations")
-  public String operations(Model model) {
-    access.requireRole(
-        edu.delivery.contract.DeliveryData.Role.OFFICE_STAFF,
-        edu.delivery.contract.DeliveryData.Role.DELIVERY_STAFF);
-    model.addAttribute("moduleName", "Scheduling and delivery operations");
-    model.addAttribute("owner", "Member C");
-    return "workspace";
-  }
 }

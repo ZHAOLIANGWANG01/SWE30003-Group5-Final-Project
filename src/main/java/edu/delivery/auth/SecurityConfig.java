@@ -38,7 +38,7 @@ public class SecurityConfig {
                 .permitAll()
                 .requestMatchers("/login", "/css/**", "/error")
                 .permitAll()
-                .requestMatchers(HttpMethod.GET, "/", "/api/session", "/workspace/**")
+                .requestMatchers(HttpMethod.GET, "/", "/api/session")
                 .authenticated()
                 .requestMatchers("/portal/customer")
                 .hasRole("CUSTOMER")

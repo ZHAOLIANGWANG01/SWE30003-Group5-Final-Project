@@ -1,0 +1,28 @@
+Delivery management HTTP smoke verification
+Date: 2026-10-29 (Australia/Melbourne)
+Baseline: GitHub main 485facc9338563bbb744232b7297bd00dcfcf23d plus cleanup changes
+Runtime: packaged Spring Boot JAR, 127.0.0.1:18303, separate H2 file database
+Method: HTTP requests with separate cookie sessions and actual CSRF tokens
+Data: synthetic local demonstration data only; no production data accessed
+
+PASS login customer.alice
+PASS login office.demo
+PASS login driver.li
+PASS login customer.bob
+PASS role-specific business pages render
+PASS removed handoff routes denied; business role restrictions enforced
+PASS server rejects blank request input
+PASS request saved and repeated submission returns same record
+PASS cross-customer request access denied
+PASS unquoted request can be edited
+PASS server rejects negative quotation amount
+PASS office quotation issued and accepted by owner
+PASS accepted request assigned at quoted time
+PASS time change proposed and confirmed by customer
+PASS illegal delivery status transition rejected
+PASS pickup, transit and delivery recorded and visible to customer
+PASS POST without CSRF token denied
+PASS CSRF-protected logout succeeds
+{"checks": 18, "requestId": 1, "quoteId": 1, "result": "PASS"}
+
+Scope: selected success and validation paths; no browser visual check or exhaustive business acceptance claimed.

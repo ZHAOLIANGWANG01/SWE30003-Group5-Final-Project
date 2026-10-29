@@ -26,7 +26,7 @@ java -jar target/delivery-management-0.1.0.jar
 
 ## 正常重启检查
 
-1. 在 B/C 页面开发完成后建立业务记录并记下编号。
+1. 使用业务页面建立申请、报价、排班和配送记录，并记下编号。
 2. 正常停止应用，再从同一工作目录启动。
 3. 重新登录，查到相同记录和状态。服务器重启后需要重新登录是正常会话行为。
 4. 目前 A 的 FilePersistenceTest 已用独立临时文件库自动检查关闭、重新打开和重复迁移后数据仍在。
@@ -48,10 +48,9 @@ java -jar target/delivery-management-0.1.0.jar
 - POST 返回 403：检查登录、角色和 CSRF token，不要禁用安全检查。
 - STALE_DATA：重新读取数据、提示用户并重新确认，不能强行覆盖。
 - TRANSACTION_REQUIRED：使用 inTransaction 并按顺序 lockStaff/lockRequest。
-- 页面显示“Awaiting business implementation”：这是 A 的交接占位，B/C 尚未实现对应业务。
 
 ## GitHub 协作
 
 先运行 ./mvnw verify，再提交功能分支并发起合并请求。A 统一合并公共文件，业务负责人修改自己的目录。CI 每次提交运行 clean verify。
 
-自动化检查不是完整作业验收：B/C 还要提供四个业务领域的完整演示、截图/解说视频及报告材料。
+自动化检查不是完整作业验收：最终提交仍需四个业务领域的完整演示、截图或解说视频及报告材料。当前检查结果见 VALIDATION.md。

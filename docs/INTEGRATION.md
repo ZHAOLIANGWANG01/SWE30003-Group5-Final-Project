@@ -1,4 +1,4 @@
-# B/C 接入说明：contract v1
+# 业务模块集成说明：contract v1
 
 ## 1. 使用方式
 
@@ -25,7 +25,7 @@ public class YourBusinessService {
 
 - 共享交换数据、角色和枚举：`DeliveryData`。
 - 存取接口：`DeliveryStore`；错误：`StoreException`。
-- 状态规则接口：`DeliveryLifecycle`，由 B 实现为 Spring Bean，C 注入使用。A 没有写空的“成功实现”。
+- 状态规则接口：`DeliveryLifecycle`，实现为 `quotes/DeliveryLifecycleImpl` Spring Bean，配送服务注入复用。
 - ID：`long`；`customerId`、`actorUserId`、`AccountData.id` 指 users.id；`staffId` 指 delivery_staff.id。
 - 金额：`BigDecimal`，正数，最多两位小数。数据库不会静默四舍五入。
 - 时间：`OffsetDateTime`。HTML datetime-local 没有时区，解析时明确使用 `ZoneId.of("Australia/Melbourne")` 并转换为 OffsetDateTime。不能把 +10 或 +11 永久写死。
@@ -133,9 +133,8 @@ B 的 lifecycle 不访问数据库、不改变存储；只根据对象和历史�
 | /schedule-changes/** | 客户、办公室员工；仍需记录检查 | C |
 | /availability/**、/delivery/** | 配送员、办公室员工；仍需本人/分配检查 | C |
 
-C 的客户进度展示需求通过 B 的 /tracking 申请详情提供，双方约定显示字段，不各建一套记录。
+`/tracking/{requestId}` 显示申请详情；`/tracking/{requestId}/events` 显示已排班申请的配送事件与当前安排，入口位于客户的“我的安排”页面。两处使用相同申请和权限检查。
 
-- 当前 /workspace/* 是明确的接入说明页面，不是上述业务 Controller。
 - 新路径先通知 A 更新安全配置和导航；默认未声明路径被拒绝。
 - 所有 POST/PUT/DELETE 保留 CSRF。Thymeleaf 的 th:action POST 表单自动加入 token；JavaScript 请求须携带 token。不要关闭 CSRF 来绕过 403。
 - 局部样式分开；公共 CSS 由 A 修改。当前 CSP 不允许内联脚本/样式，使用独立同源文件。

@@ -10,4 +10,4 @@
 - Do not rewrite published Flyway migrations; add a new migration.
 - Do not commit data/, target/, secrets, IDE state or real personal data.
 - Run ./mvnw verify before a merge. A owns integration, not all business debugging.
-- Root README and docs/TEAM_RULES.md describe scope; placeholder business cards are not completed features.
+- Root README and docs/TEAM_RULES.md describe scope; implementation, tests and execution evidence must be described separately.

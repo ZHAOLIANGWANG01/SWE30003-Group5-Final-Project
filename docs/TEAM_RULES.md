@@ -1,6 +1,6 @@
 # 配送管理系统：三人协作规则与接口约定 v1
 
-本规则对应已交付的 A 基础框架。数据库、认证和公共页面已实现；B/C 业务页面和规则仍需开发。三位成员共同审查共享接口后继续开发。
+本规则适用于当前三人协作的配送管理项目。数据库、认证及申请、报价、排班、可用时间、配送执行模块均已有实现；各成员按以下边界维护所属代码，共同审查共享接口和跨模块变更。
 
 ## 1. 固定技术与范围
 
@@ -20,10 +20,10 @@
 | B | requests、quotes 业务类、处理逻辑、页面、模块样式及相应测试 |
 | C | scheduling、availability、delivery 业务类、处理逻辑、页面、模块样式及相应测试 |
 
-- B 独占 DeliveryRequest、Parcel、DeliveryQuote 的业务类，以及配送生命周期规则。C 调用 B 的业务方法记录配送结果。
-- C 独占 DeliveryStaff、StaffAvailability、DeliverySchedule 及排班和执行协调逻辑。
+- B 维护 RequestService、QuoteService、DeliveryLifecycleImpl 及对应 Controller、模板和测试。C 通过 DeliveryLifecycle 验证配送状态转换。
+- C 维护 AvailabilityService、SchedulingService、DeliveryService 及对应 Controller 和模板。
 - 共享的状态值和交换数据使用 contract 中的定义；不要在不同模块另建拼写不同的枚举。
-- 一张数据表不必对应一个业务类；contract 的 record 是交换数据，不代替原报告里的领域对象。
+- 一张数据表不必对应一个业务类。当前实现以 Service 承担业务行为、contract 中的 record 传递数据；报告类图和职责说明应按实际代码更新。
 - 每个文件只有一位默认修改者。发现别人的问题，提交说明给负责人；经明确交接后可由另一人修复，期间原负责人停止修改该文件。
 - 不顺手改动其他模块，不全项目重新格式化，不同时创建功能相同的工具类。
 
@@ -127,8 +127,8 @@ A 可用 Spring TransactionTemplate 实现 inTransaction，所有存取必须参
 - 已合并的建表版本不直接覆盖；结构修改增加新迁移脚本。
 - 第一次运行建立表和演示账号；正常启动不清空数据、不重复初始化。
 - 数据库文件、编译产物和个人 IDE 设置不提交 Git。共享测试数据使用脚本。
-- 第一阶段 A 交付连接、账号读取、申请创建查询和基本事务；随后补齐报价、排班和事件接口。
-- B、C 可以先使用仅用于测试的替代存储，最终演示必须连接真实 H2 实现。
+- 当前 DeliveryStore 提供申请、报价、排班、时段和事件的存取能力；跨模块变更继续由 A 维护共享接口。
+- 测试可以使用替代存储；最终演示必须连接实际 H2 实现。
 
 ## 8. 分支、评审和合并
 
@@ -159,8 +159,6 @@ A 可用 Spring TransactionTemplate 实现 inTransaction，所有存取必须参
 - Spring TransactionTemplate：https://docs.spring.io/spring-framework/reference/data-access/transaction/programmatic.html
 - Git 合并与冲突：https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging
 
-## 11. 初始变更记录
+## 11. 文档维护
 
-| 版本 | 内容 | 状态 |
-|---|---|---|
-| v1 | 文件所有权、统一存取接口、字段、错误和事务约定 | 开发前草案；三人共同确认后采用 |
+共享接口、职责和范围变更时同步更新本规则、INTEGRATION.md 和报告。工时、评审和会议记录应由成员按实际情况填写。
