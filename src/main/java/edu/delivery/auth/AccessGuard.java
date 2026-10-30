@@ -9,7 +9,7 @@ import org.springframework.security.authentication.AuthenticationCredentialsNotF
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
-/** Shared record-level checks. URL roles alone do not protect ownership. */
+/** Shared role and record ownership checks. */
 @Component("access")
 public class AccessGuard {
   private final DeliveryStore store;

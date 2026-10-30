@@ -12,7 +12,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-/** Local teaching/demo identities only; never overwrites an existing account. */
+/** Create missing accounts without replacing existing data. */
 @Component
 @ConditionalOnProperty(name = "app.demo.enabled", havingValue = "true")
 public class DemoDataInitializer implements ApplicationRunner {

@@ -11,7 +11,6 @@ import java.time.OffsetDateTime;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
-/** Member B quote workflow: locks + validation + atomic status/event writes. */
 @Service
 public class QuoteService {
   private final DeliveryStore store;
@@ -54,7 +53,7 @@ public class QuoteService {
       if (request.status() != RequestStatus.REQUESTED && request.status() != RequestStatus.QUOTED) {
         throw new IllegalArgumentException("Only open requests can be quoted");
       }
-      // Reject incomplete requests even when data was imported outside the B screens.
+      // Validate stored details before quoting.
       edu.delivery.requests.RequestService.validateDetails(request.details());
       List<QuoteData> previous = tx.findQuotesForRequest(requestId);
       for (QuoteData old : previous) {
@@ -96,7 +95,7 @@ public class QuoteService {
         throw new IllegalArgumentException("This quote has been superseded");
       }
       if (!quote.expiresAt().isAfter(OffsetDateTime.now(clock))) {
-        // Persist EXPIRED without throwing inside this transaction (which would roll it back).
+        // Return normally so the expiry update is committed.
         return tx.updateQuoteStatus(quote.id(), quote.version(), QuoteStatus.EXPIRED);
       }
       if (!accept) return tx.updateQuoteStatus(quote.id(), quote.version(), QuoteStatus.DECLINED);

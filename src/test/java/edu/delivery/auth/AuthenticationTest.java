@@ -43,7 +43,11 @@ class AuthenticationTest {
   void loginPageRendersAndContainsCsrf() throws Exception {
     mvc.perform(get("/login"))
         .andExpect(status().isOk())
-        .andExpect(content().string(org.hamcrest.Matchers.containsString("_csrf")));
+        .andExpect(content().string(org.hamcrest.Matchers.containsString("_csrf")))
+        .andExpect(content().string(org.hamcrest.Matchers.containsString("/js/form-validation.js")));
+    mvc.perform(get("/js/form-validation.js"))
+        .andExpect(status().isOk())
+        .andExpect(content().string(org.hamcrest.Matchers.containsString("Please fill out this field.")));
     mvc.perform(get("/")).andExpect(status().is3xxRedirection());
   }
 

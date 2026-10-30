@@ -4,7 +4,7 @@
 <body>
 <header th:replace="~{shared/layout :: header}"></header>
 <main class="container narrow">
-  <p class="eyebrow">MEMBER B / REQUESTS</p>
+  <p class="eyebrow">REQUESTS</p>
   <h1>Create Delivery Request</h1>
   <p class="muted">Enter parcel and delivery details. Fields marked * are required.</p>
   <p class="alert error" role="alert" th:if="${errorMessage}" th:text="${errorMessage}"></p>
@@ -42,6 +42,5 @@
     </form>
   </section>
 </main>
-<footer th:replace="~{shared/layout :: footer}"></footer>
 </body>
 </html>

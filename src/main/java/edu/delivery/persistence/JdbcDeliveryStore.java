@@ -23,7 +23,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
 
-/** All SQL and atomic storage operations. Domain rules remain in B/C services. */
+/** JDBC persistence and transaction boundaries. */
 @Repository
 public class JdbcDeliveryStore implements DeliveryStore {
   private final JdbcTemplate jdbc;
@@ -594,7 +594,6 @@ public class JdbcDeliveryStore implements DeliveryStore {
   }
 
   private long insert(String sql, Object... args) {
-    // SQL statements are fixed internal strings; values are always bound parameters.
     var keys = new org.springframework.jdbc.support.GeneratedKeyHolder();
     jdbc.update(
         connection -> {

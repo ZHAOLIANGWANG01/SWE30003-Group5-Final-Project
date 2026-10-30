@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-/** Member B quote screens and form actions. */
 @Controller
 public class QuoteController {
   private static final ZoneId MELBOURNE = ZoneId.of("Australia/Melbourne");
@@ -135,7 +134,6 @@ public class QuoteController {
       long id = Long.parseLong(raw);
       if (id > 0) return id;
     } catch (NumberFormatException ex) {
-      // Validated below.
     }
     throw new IllegalArgumentException("Invalid request ID");
   }

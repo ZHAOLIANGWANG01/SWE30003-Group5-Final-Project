@@ -5,7 +5,7 @@
 <header th:replace="~{shared/layout :: header}"></header>
 <nav class="module-nav container" aria-label="Operations"><a th:href="@{/scheduling}">Scheduling</a><a th:href="@{/availability}">Availability</a><a th:href="@{/schedule-changes}">Schedule changes</a><a th:href="@{/delivery/tasks}">Delivery tasks</a></nav>
 <main class="container narrow">
-  <p class="eyebrow">MEMBER C / AVAILABILITY</p><h1>Staff availability</h1>
+  <p class="eyebrow">AVAILABILITY</p><h1>Staff availability</h1>
   <p class="muted">Enter times in Melbourne local time. A delivery shift must cover the full pickup-to-delivery period.</p>
   <p class="alert success" th:if="${successMessage}" th:text="${successMessage}"></p><p class="alert error" role="alert" th:if="${errorMessage}" th:text="${errorMessage}"></p>
   <form class="stack staff-picker" method="get" th:action="@{/availability}" th:if="${#lists.size(staff) > 1}">
@@ -25,10 +25,9 @@
   <section th:if="${selectedStaffId != null}">
     <h2>Existing periods</h2><p th:if="${#lists.isEmpty(periods)}" class="muted">No periods recorded for this staff member.</p>
     <article class="card period-card" th:each="entry : ${periods}">
-      <div><p class="badge" th:text="${entry.period().kind()}"></p><p><strong th:text="${entry.startLocal()}"></strong> – <strong th:text="${entry.endLocal()}"></strong></p><p class="muted">Record version <span th:text="${entry.period().version()}"></span></p></div>
+      <div><p class="badge" th:text="${entry.period().kind()}"></p><p><strong th:text="${entry.startLocal()}"></strong> – <strong th:text="${entry.endLocal()}"></strong></p></div>
       <details><summary>Edit period</summary><form class="stack" method="post" th:action="@{/availability/save}"><input type="hidden" name="staffId" th:value="${entry.period().staffId()}"><input type="hidden" name="availabilityId" th:value="${entry.period().id()}"><input type="hidden" name="version" th:value="${entry.period().version()}"><label>Start (Melbourne)</label><input name="startAt" type="datetime-local" required th:value="${entry.startLocal()}"><label>End (Melbourne)</label><input name="endAt" type="datetime-local" required th:value="${entry.endLocal()}"><label>Period</label><select name="kind" required><option value="AVAILABLE" th:selected="${entry.period().kind().name() == 'AVAILABLE'}">Available</option><option value="UNAVAILABLE" th:selected="${entry.period().kind().name() == 'UNAVAILABLE'}">Unavailable</option></select><button type="submit">Update period</button></form></details>
     </article>
   </section>
 </main>
-<footer th:replace="~{shared/layout :: footer}"></footer>
 </body></html>

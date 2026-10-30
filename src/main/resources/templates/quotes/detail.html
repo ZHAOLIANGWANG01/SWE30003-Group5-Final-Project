@@ -4,7 +4,7 @@
 <body>
 <header th:replace="~{shared/layout :: header}"></header>
 <main class="container narrow">
-  <p class="eyebrow">MEMBER B / QUOTATIONS</p>
+  <p class="eyebrow">QUOTATIONS</p>
   <h1>Quote #<span th:text="${quote.id()}"></span></h1>
   <p class="alert success" th:if="${successMessage}" th:text="${successMessage}"></p>
   <p class="alert error" th:if="${errorMessage}" th:text="${errorMessage}"></p>
@@ -29,6 +29,5 @@
     <p><a th:href="@{/quotes(requestId=${request.id()})}">All quotes</a></p>
   </section>
 </main>
-<footer th:replace="~{shared/layout :: footer}"></footer>
 </body>
 </html>

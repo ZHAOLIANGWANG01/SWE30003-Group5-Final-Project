@@ -4,7 +4,7 @@
 <body>
 <header th:replace="~{shared/layout :: header}"></header>
 <main class="container narrow">
-  <p class="eyebrow">MEMBER B / QUOTATIONS</p>
+  <p class="eyebrow">QUOTATIONS</p>
   <h1>Quotes for Request #<span th:text="${request.id()}"></span></h1>
   <p th:if="${office}"><a class="button" th:href="@{/quotes/new(requestId=${request.id()})}">Issue a quote</a></p>
   <section class="card" th:each="q : ${quotes}">
@@ -16,6 +16,5 @@
   <p th:if="${#lists.isEmpty(quotes)}">No quote has been issued yet.</p>
   <a th:href="@{/requests/{id}(id=${request.id()})}">Back to request</a>
 </main>
-<footer th:replace="~{shared/layout :: footer}"></footer>
 </body>
 </html>

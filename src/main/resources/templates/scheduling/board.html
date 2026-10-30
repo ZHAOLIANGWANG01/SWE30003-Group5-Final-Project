@@ -5,7 +5,7 @@
 <header th:replace="~{shared/layout :: header}"></header>
 <nav class="module-nav container" aria-label="Operations"><a th:href="@{/scheduling}">Scheduling</a><a th:href="@{/availability}">Availability</a><a th:href="@{/schedule-changes}">Schedule changes</a><a th:href="@{/delivery/tasks}">Delivery tasks</a></nav>
 <main class="container">
-  <p class="eyebrow">MEMBER C / SCHEDULING</p><h1>Scheduling and staff allocation</h1>
+  <p class="eyebrow">SCHEDULING</p><h1>Scheduling and staff allocation</h1>
   <p class="muted">Only customer-accepted quotes can be scheduled. The accepted pickup and delivery times stay unchanged unless the customer confirms a proposal.</p>
   <p class="alert success" th:if="${successMessage}" th:text="${successMessage}"></p><p class="alert error" role="alert" th:if="${errorMessage}" th:text="${errorMessage}"></p>
   <section><h2>Accepted requests awaiting a staff member</h2>
@@ -17,7 +17,7 @@
   </section>
   <section><h2>Current schedules</h2><p class="muted" th:if="${#lists.isEmpty(schedules)}">No current schedules are listed.</p>
     <article class="card schedule-card" th:each="item : ${schedules}">
-      <div><p class="eyebrow" th:text="${'REQUEST #' + item.request().id()}"></p><h3 th:text="${item.request().details().recipientName() + ' · ' + item.request().details().parcelDescription()}"></h3><p th:text="${item.request().details().pickupAddress() + ' → ' + item.request().details().deliveryAddress()}"></p><p><strong th:text="${item.staffName()}"></strong> · <span th:text="${item.schedule().pickupAt()}"></span> – <span th:text="${item.schedule().deliveryAt()}"></span></p><p>Status: <span th:text="${item.request().status()}"></span> · Version <span th:text="${item.schedule().version()}"></span></p></div>
+      <div><p class="eyebrow" th:text="${'REQUEST #' + item.request().id()}"></p><h3 th:text="${item.request().details().recipientName() + ' · ' + item.request().details().parcelDescription()}"></h3><p th:text="${item.request().details().pickupAddress() + ' → ' + item.request().details().deliveryAddress()}"></p><p><strong th:text="${item.staffName()}"></strong> · <span th:text="${item.schedule().pickupAt()}"></span> – <span th:text="${item.schedule().deliveryAt()}"></span></p><p>Status: <span th:text="${item.request().status()}"></span></p></div>
       <div class="schedule-actions">
         <details><summary>Propose a time change</summary><p class="muted">The current time remains in place while the customer decides.</p><form class="stack compact-form" method="post" th:action="@{/scheduling/{id}/time-change(id=${item.request().id()})}"><input type="hidden" name="scheduleVersion" th:value="${item.schedule().version()}"><label>New pickup time (Melbourne)</label><input name="pickupAt" type="datetime-local" required><label>New delivery time (Melbourne)</label><input name="deliveryAt" type="datetime-local" required><button type="submit">Send proposal</button></form></details>
         <details><summary>Reassign delivery staff</summary><form class="stack compact-form" method="post" th:action="@{/scheduling/{id}/reassign(id=${item.request().id()})}"><label>Delivery staff</label><select name="staffId" required><option th:each="person : ${staff}" th:value="${person.id()}" th:text="${person.displayName()}" th:selected="${person.id() == item.schedule().staffId()}"></option></select><button type="submit">Reassign</button></form></details>
@@ -26,5 +26,4 @@
     </article>
   </section>
 </main>
-<footer th:replace="~{shared/layout :: footer}"></footer>
 </body></html>

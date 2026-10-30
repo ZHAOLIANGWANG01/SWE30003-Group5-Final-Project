@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.UUID;
 import org.springframework.stereotype.Service;
 
-/** Member B: all request validation and authorization, with persistence delegated to A. */
 @Service
 public class RequestService {
   private final DeliveryStore store;
@@ -19,11 +18,8 @@ public class RequestService {
     this.access = access;
   }
 
-
   public RequestData submitRequest(String submissionKey, RequestDetails details) {
     access.requireRole(Role.CUSTOMER);
-
-    // Validate input before reading the current user.
     validateSubmissionKey(submissionKey);
     validateDetails(details);
 
@@ -32,7 +28,6 @@ public class RequestService {
             submissionKey,
             details);
   }
-
 
   public RequestData submitForCustomer(String username, String submissionKey, RequestDetails details) {
     access.requireRole(Role.OFFICE_STAFF);

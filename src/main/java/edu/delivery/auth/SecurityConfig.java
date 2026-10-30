@@ -36,7 +36,7 @@ public class SecurityConfig {
         auth ->
             auth.dispatcherTypeMatchers(DispatcherType.ERROR, DispatcherType.FORWARD)
                 .permitAll()
-                .requestMatchers("/login", "/css/**", "/error")
+                .requestMatchers("/login", "/css/**", "/js/**", "/error")
                 .permitAll()
                 .requestMatchers(HttpMethod.GET, "/", "/api/session")
                 .authenticated()
@@ -72,7 +72,7 @@ public class SecurityConfig {
                         "default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self'"
                             + " data:; object-src 'none'; base-uri 'self'; frame-ancestors 'none';"
                             + " form-action 'self'")));
-    // CSRF protection remains enabled. All forms must include the CSRF token.
+    // Keep CSRF protection enabled.
     return http.build();
   }
 }

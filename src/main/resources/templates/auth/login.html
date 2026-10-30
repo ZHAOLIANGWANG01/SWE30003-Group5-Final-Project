@@ -3,7 +3,7 @@
 <head th:replace="~{shared/layout :: head('Sign in')}"></head>
 <body class="login-page">
 <main class="login-card">
-  <p class="eyebrow">GROUP 5 · DELIVERY MANAGEMENT</p>
+  <p class="eyebrow">DELIVERY MANAGEMENT</p>
   <h1>Your Order<br><span>We Deliver.</span></h1>
   <p class="muted">Sign in to your delivery workspace.</p>
   <p th:if="${param.error}" class="alert error" role="alert">Unable to sign in. Check your credentials.</p>
@@ -16,5 +16,4 @@
     <button type="submit">Sign in</button>
   </form>
 </main>
-<footer th:replace="~{shared/layout :: footer}"></footer>
 </body></html>

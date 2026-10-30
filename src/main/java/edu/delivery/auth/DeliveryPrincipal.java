@@ -8,7 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-/** Internal security principal. Never return this object from a web controller. */
+/** Internal authentication principal; never expose credentials. */
 public final class DeliveryPrincipal implements UserDetails {
   private static final long serialVersionUID = 1L;
   private final AccountData account;

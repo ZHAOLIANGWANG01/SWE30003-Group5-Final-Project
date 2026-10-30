@@ -4,7 +4,7 @@
 <body>
 <header th:replace="~{shared/layout :: header}"></header>
 <main class="container narrow">
-  <p class="eyebrow">MEMBER B / QUOTATIONS</p>
+  <p class="eyebrow">QUOTATIONS</p>
   <h1>Create Quote for Request #<span th:text="${request.id()}"></span></h1>
   <p class="muted">Times are entered in Melbourne local time. Use an unambiguous time around DST changes.</p>
   <p class="alert error" role="alert" th:if="${errorMessage}" th:text="${errorMessage}"></p>
@@ -26,6 +26,5 @@
     </form>
   </section>
 </main>
-<footer th:replace="~{shared/layout :: footer}"></footer>
 </body>
 </html>

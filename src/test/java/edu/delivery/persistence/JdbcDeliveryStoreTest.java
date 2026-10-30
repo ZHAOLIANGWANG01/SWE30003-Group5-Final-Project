@@ -412,7 +412,6 @@ class JdbcDeliveryStoreTest {
 
   @Test
   void concurrentBookingPatternSerializesCheckAndWrite() throws Exception {
-    // Integration example for C: the repository provides locks, C must perform the overlap check.
     long first = request("parallel-1").id(), second = request("parallel-2").id();
     ExecutorService pool = Executors.newFixedThreadPool(2);
     CountDownLatch ready = new CountDownLatch(2), go = new CountDownLatch(1);

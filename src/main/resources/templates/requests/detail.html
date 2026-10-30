@@ -4,13 +4,12 @@
 <body>
 <header th:replace="~{shared/layout :: header}"></header>
 <main class="container narrow">
-  <p class="eyebrow">MEMBER B / REQUESTS</p>
+  <p class="eyebrow">REQUESTS</p>
   <h1>Delivery Request #<span th:text="${request.id()}">1</span></h1>
   <p class="alert success" th:if="${successMessage}" th:text="${successMessage}"></p>
   <p class="alert error" th:if="${errorMessage}" th:text="${errorMessage}"></p>
   <section class="card">
     <p>Status: <strong th:text="${request.status()}">REQUESTED</strong></p>
-    <p>Version: <span th:text="${request.version()}">0</span></p>
     <p>Created: <span th:text="${request.createdAt()}"></span></p>
     <h2>Customer</h2>
     <p>Name: <span th:text="${request.details().customerName()}"></span></p>
@@ -31,6 +30,5 @@
     <p><a th:href="@{/requests}">All requests</a></p>
   </section>
 </main>
-<footer th:replace="~{shared/layout :: footer}"></footer>
 </body>
 </html>

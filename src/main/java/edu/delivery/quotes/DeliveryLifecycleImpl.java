@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Objects;
 import org.springframework.stereotype.Component;
 
-/** B's reusable lifecycle rules. Does not access persistence or authenticated sessions. */
 @Component
 public class DeliveryLifecycleImpl implements DeliveryLifecycle {
   @Override

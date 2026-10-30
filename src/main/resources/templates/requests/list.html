@@ -4,7 +4,7 @@
 <body>
 <header th:replace="~{shared/layout :: header}"></header>
 <main class="container">
-  <p class="eyebrow">MEMBER B / REQUESTS</p><h1>Delivery Requests</h1>
+  <p class="eyebrow">REQUESTS</p><h1>Delivery Requests</h1>
   <p class="muted" th:text="${office} ? 'Office: all customer requests' : 'Your requests'">Your requests</p>
   <p><a class="button" th:href="@{/requests/new}">Create request</a></p>
   <section class="grid" th:if="${!#lists.isEmpty(requests)}">
@@ -23,6 +23,5 @@
   </p>
   <p><a th:href="@{/}">Back to workspace</a></p>
 </main>
-<footer th:replace="~{shared/layout :: footer}"></footer>
 </body>
 </html>

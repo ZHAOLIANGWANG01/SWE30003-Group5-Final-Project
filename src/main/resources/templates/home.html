@@ -10,7 +10,7 @@
   <div class="alert success">Choose a workspace below to continue.</div>
   <div class="grid">
     <article class="card" th:if="${person.role().name() != 'DELIVERY_STAFF'}">
-      <p class="eyebrow">MEMBER B</p>
+      <p class="eyebrow">REQUESTS AND QUOTATIONS</p>
       <h2>Requests &amp; quotations</h2>
       <p>Create delivery requests, review quotations and make customer decisions.</p>
       <a class="button" th:href="@{/requests}">Open requests</a>
@@ -22,14 +22,14 @@
       <a class="button" th:href="@{/schedule-changes}">Open my schedule</a>
     </article>
     <article class="card" th:if="${person.role().name() == 'OFFICE_STAFF'}">
-      <p class="eyebrow">MEMBER C</p>
+      <p class="eyebrow">DELIVERY OPERATIONS</p>
       <h2>Scheduling &amp; operations</h2>
       <p>Assign staff, manage availability and coordinate delivery execution.</p>
       <p><a class="button" th:href="@{/scheduling}">Open scheduling</a></p>
       <a class="button secondary" th:href="@{/availability}">Manage availability</a>
     </article>
     <article class="card" th:if="${person.role().name() == 'DELIVERY_STAFF'}">
-      <p class="eyebrow">MEMBER C</p>
+      <p class="eyebrow">DELIVERY OPERATIONS</p>
       <h2>My delivery tasks</h2>
       <p>View assigned deliveries, update availability and record progress.</p>
       <p><a class="button" th:href="@{/delivery/tasks}">Open delivery tasks</a></p>
@@ -37,6 +37,5 @@
     </article>
   </div>
 </main>
-<footer th:replace="~{shared/layout :: footer}"></footer>
 </body>
 </html>

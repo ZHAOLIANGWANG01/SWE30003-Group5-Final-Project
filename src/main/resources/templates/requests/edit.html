@@ -4,9 +4,9 @@
 <body>
 <header th:replace="~{shared/layout :: header}"></header>
 <main class="container narrow">
-  <p class="eyebrow">MEMBER B / REQUESTS</p>
+  <p class="eyebrow">REQUESTS</p>
   <h1>Edit Request #<span th:text="${request.id()}"></span></h1>
-  <p class="muted">Only unquoted requests can be changed. A stale version must be reviewed again.</p>
+  <p class="muted">Only unquoted requests can be changed.</p>
   <p class="alert error" role="alert" th:if="${errorMessage}" th:text="${errorMessage}"></p>
   <section class="card">
     <form class="stack" method="post" th:action="@{/requests/{id}/edit(id=${request.id()})}">
@@ -34,6 +34,5 @@
     </form>
   </section>
 </main>
-<footer th:replace="~{shared/layout :: footer}"></footer>
 </body>
 </html>

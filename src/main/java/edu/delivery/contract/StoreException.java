@@ -1,6 +1,6 @@
 package edu.delivery.contract;
 
-/** Stable errors for business services; do not return raw database errors to users. */
+/** Stable persistence error codes. */
 public final class StoreException extends RuntimeException {
   private static final long serialVersionUID = 1L;
 

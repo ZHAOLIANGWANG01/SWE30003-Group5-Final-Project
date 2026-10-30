@@ -3,6 +3,6 @@
 <head th:replace="~{scheduling/c-layout :: head('Delivery Tasks')}"></head>
 <body><header th:replace="~{shared/layout :: header}"></header>
 <nav class="module-nav container" aria-label="Delivery"><a th:href="@{/delivery/tasks}">Delivery tasks</a><a th:href="@{/availability}">Availability</a><a th:href="@{/scheduling}" th:if="${isOffice}">Scheduling</a></nav>
-<main class="container narrow"><p class="eyebrow">MEMBER C / DELIVERY EXECUTION</p><h1 th:text="${isOffice ? 'Scheduled deliveries' : 'My delivery tasks'}">My delivery tasks</h1><p class="muted" th:if="${#lists.isEmpty(tasks)}">No deliveries are assigned in this period.</p>
+<main class="container narrow"><p class="eyebrow">DELIVERY</p><h1 th:text="${isOffice ? 'Scheduled deliveries' : 'My delivery tasks'}">My delivery tasks</h1><p class="muted" th:if="${#lists.isEmpty(tasks)}">No deliveries are assigned in this period.</p>
 <article class="card" th:each="item : ${tasks}"><p class="eyebrow" th:text="${'REQUEST #' + item.request().id()}"></p><h2 th:text="${item.request().details().recipientName() + ' · ' + item.request().details().parcelDescription()}"></h2><p><strong th:text="${item.staffName()}"></strong> · <span th:text="${item.schedule().pickupAt()}"></span> – <span th:text="${item.schedule().deliveryAt()}"></span></p><p>Status: <span th:text="${item.request().status()}"></span></p><a class="button secondary" th:href="@{/delivery/tasks/{id}(id=${item.request().id()})}">Open task</a></article>
-</main><footer th:replace="~{shared/layout :: footer}"></footer></body></html>
+</main></body></html>

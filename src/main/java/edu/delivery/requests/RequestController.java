@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-/** Member B website routes. Does not access SQL or persistence implementation. */
 @Controller
 public class RequestController {
   private final AccessGuard access;
@@ -94,7 +93,7 @@ public class RequestController {
       flash.addFlashAttribute("successMessage", "Request updated successfully");
       return "redirect:/requests/" + id;
     } catch (IllegalArgumentException | StoreException ex) {
-      // Fetch the latest record for an accurate version and state; never silently overwrite stale edits.
+      // Reload before retrying a stale edit.
       RequestData latest = requests.viewRequest(id);
       if (latest.status() != RequestStatus.REQUESTED) {
         flash.addFlashAttribute("errorMessage", "This request is now quoted and cannot be edited");

@@ -3,7 +3,6 @@ package edu.delivery.contract;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 
-/** Exchange data only. Domain behavior belongs to the business modules. */
 public final class DeliveryData {
   private DeliveryData() {}
 
@@ -51,7 +50,6 @@ public final class DeliveryData {
     DELIVERY_FAILED
   }
 
-  /** Internal authentication data; never serialize passwordHash to a browser. */
   public record AccountData(
       long id,
       String username,
@@ -70,7 +68,6 @@ public final class DeliveryData {
       String parcelDescription,
       String handlingNotes) {}
 
-  /** submissionKey identifies one form submission, not a delivery's contents. */
   public record RequestDraft(long customerId, String submissionKey, RequestDetails details) {}
 
   public record RequestData(
@@ -81,7 +78,6 @@ public final class DeliveryData {
       OffsetDateTime createdAt,
       long version) {}
 
-  /** Null customerId/status means no filter; offset >= 0, 1 <= limit <= 100. */
   public record RequestFilter(Long customerId, RequestStatus status, int offset, int limit) {}
 
   public record QuoteDraft(
